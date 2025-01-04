@@ -1,0 +1,14 @@
+.ant-pro-form-group{
+    width: 160rem;
+}
+/* .ant-input-affix-wrapper{
+    width: 160rem;
+    padding: 10px;
+} */
+.ant-picker{
+    width: 160rem;
+    padding: 10px;
+}
+.ant-pro-form >div:not(.ant-pro-form-light-filter) .pro-field-md{
+    width: 160rem;
+}

@@ -1,0 +1,162 @@
+
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 255, 255, 255;
+    --background-end-rgb: 255, 255, 255;
+    --box-shadow: rgba(149, 157, 165, 0.2) 20px 8px 24px !important;
+    --primary-color: #fb9400 !important;
+    /* --test-color : red ;  */
+  }
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* color: rgb(var(--foreground-rgb)); */
+  /* background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+    overflow-x: hidden;
+}
+html {
+  font-size: 4px;
+  /* color: #333; */
+}
+.title {
+  font-size: 8rem;
+  font-weight: 500;
+  text-align: center;
+  /* margin-bottom: 10rem; */
+  color:  #fb9400;
+  margin: 5% auto;
+}
+.custom-btn {
+  background-color: #fb9400;
+  /* padding: 2rem 6rem; */
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.custom-btn:hover {
+  opacity: 0.9;
+  color: #ffffff;
+  border: none;
+  transform: scale(1.1);
+  transition: linear 0.3s;
+}
+
+/* div {
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 400; */
+/* } */
+
+.bgr-englishacademic {
+  background-image: url("/anhnguhocthuat_0.png");
+  background-repeat: no-repeat;
+  object-fit: cover;
+  background-size: contain;
+  height: 70vh;
+  /* background-position: center; */
+}
+.bgr-ielts{
+  background-image: url("/anhnguhocthuat_0.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 500px;
+}
+
+
+.block-center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% ,-50%);
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  p{
+    font-size: 3rem;
+  }
+}
+@media only screen and (max-width: 850px) {
+  /* For mobile phones: */
+ p{
+    font-size: 3.5rem;
+  }
+}
+
+h2{
+  font-size: 22px;
+  font-weight: 500;
+}
+h3{
+  font-size: 18px;
+  font-weight: 500;
+}
+p{
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+button{
+  font-size: 15px;
+  font-weight: 700px;
+}
+
+div{
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+#button-register > .ant-btn{
+  color: red;
+  height: 50px !important;
+}
+.titleAptisB1{
+  color: #fb9400;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+  margin: 10px 0;
+}
+
+.image-bottom-aptis-b1:before{
+  content: "";
+  position: absolute;
+  height: 50%;
+  width: 35%;
+  bottom: -5%;
+  right: -3%;
+  border-radius: 20px;
+  background-color: #fb9400;
+  z-index: -10;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.image-top-aptis-b1:after{
+  content: "";
+  position: absolute;
+  height: 30%;
+  width:20%;
+  top: -5%;
+  left: -3%;
+  border-radius: 20px;
+  background-color: #23BDEE;
+  z-index: -5;
+  /* box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); */
+}
