@@ -32,41 +32,44 @@ const MenuHeader = () => {
     if (pathname.includes("/")) {
       return "1";
     }
+     if (pathname.includes("/admission")) {
+       return "3";
+     }
     if (pathname.includes("/vstep")) {
-      return "3";
-    }
-    if (pathname.includes("/vstep/luyen-thi-b1")) {
       return "4";
     }
-    if (pathname.includes("/vstep/luyen-thi-b2")) {
+    if (pathname.includes("/vstep/luyen-thi-b1")) {
       return "5";
     }
-    if (pathname.includes("/toeic")) {
+    if (pathname.includes("/vstep/luyen-thi-b2")) {
       return "6";
     }
-    if (pathname.includes("/ielts")) {
+    if (pathname.includes("/toeic")) {
       return "7";
     }
-    if (pathname.includes("/aptis")) {
+    if (pathname.includes("/ielts")) {
       return "8";
     }
-    if (pathname.includes("/aptis/luyen-thi-b1")) {
+    if (pathname.includes("/aptis")) {
       return "9";
     }
-    if (pathname.includes("/aptis/luyen-thi-b2")) {
+    if (pathname.includes("/aptis/luyen-thi-b1")) {
       return "10";
     }
-    if (pathname.includes("/englishacademic")) {
+    if (pathname.includes("/aptis/luyen-thi-b2")) {
       return "11";
     }
-    if (pathname.includes("/test-schedule")) {
+    if (pathname.includes("/englishacademic")) {
       return "12";
     }
-    if (pathname.includes("/study-schedule")) {
+    if (pathname.includes("/test-schedule")) {
       return "13";
     }
-    if (pathname.includes("/new")) {
+    if (pathname.includes("/study-schedule")) {
       return "14";
+    }
+    if (pathname.includes("/new")) {
+      return "15";
     }
   };
 
@@ -78,31 +81,38 @@ const MenuHeader = () => {
         router.push("/");
       },
     },
+    // {
+    //   label: (
+    //     <Link href={`http://localhost:8080/mocktest/exam/?jwt=${jwt}&id=${id}`}>
+    //       THI THỬ
+    //     </Link>
+    //   ),
+    //   key: "2",
+    // },
     {
-      label: (
-        <Link href={`https://mocktest.edustar.com.vn/?jwt=${jwt}&id=${id}`}>
-          THI THỬ{" "}
-        </Link>
-      ),
-      key: "2",
+      label: "TUYỂN SINH",
+      key: "3",
+      onClick: () => {
+        router.push("/admission");
+      },
     },
     {
-      label: "KHÓA HỌC",
+      label: "ĐÀO TẠO ANH NGỮ",
       children: [
         {
           label: <Link href="/vstep">Luyện thi VSTEP</Link>,
-          key: "3",
+          key: "4",
           children: [
             {
               label: "Luyện thi VSTEP B1",
-              key: "4",
+              key: "5",
               onClick: () => {
                 router.push("/vstep/luyen-thi-b1");
               },
             },
             {
               label: "Luyện thi VSTEP B2",
-              key: "5",
+              key: "6",
               onClick: () => {
                 router.push("/vstep/luyen-thi-b2");
               },
@@ -111,42 +121,41 @@ const MenuHeader = () => {
         },
         {
           label: "Luyện thi TOEIC",
-          key: "6",
+          key: "7",
           onClick: () => {
             router.push("/toeic");
           },
         },
         {
           label: "Luyện thi IELTS",
-          key: "7",
+          key: "8",
           onClick: () => {
             router.push("/ielts");
           },
         },
         {
           label: <Link href="/aptis">Luyện thi APTIS</Link>,
-          key: "8",
+          key: "9",
           children: [
             {
               label: "Luyện thi APTIS B1",
-              key: "9",
+              key: "10",
               onClick: () => {
                 router.push("/aptis/luyen-thi-b1");
               },
             },
             {
               label: "Luyện thi APTIS B2",
-              key: "10",
+              key: "11",
               onClick: () => {
                 router.push("/aptis/luyen-thi-b2");
               },
             },
           ],
         },
-
         {
           label: "Anh Ngữ Học Thuật",
-          key: "11",
+          key: "12",
           onClick: () => {
             router.push("/englishacademic");
           },
@@ -154,22 +163,53 @@ const MenuHeader = () => {
       ],
     },
     {
+      label: "ĐÀO TẠO TIN HỌC",
+      children: [
+        {
+          label: (
+            <Link href="/oit0">CHỨNG CHỈ ỨNG DỤNG CNTT CƠ BẢN VÀ NÂNG CAO</Link>
+          ),
+          key: "16",
+          onClick: () => {
+            router.push("/oit0");
+          },
+        },
+        {
+          label: <Link href="/oit1">CHỨNG CHỈ TIN HỌC QUỐC TẾ ICDL</Link>,
+          key: "17",
+
+          onClick: () => {
+            router.push("/oit1");
+          },
+        },
+        {
+          label: <Link href="/itce">Chứng chỉ Tin học</Link>,
+          key: "19",
+
+          onClick: () => {
+            router.push("/itce");
+          },
+        },
+      ],
+    },
+
+    {
       label: "LỊCH THI VSTEP",
-      key: "12",
+      key: "13",
       onClick: () => {
         router.push("/test-schedule");
       },
     },
     {
       label: "LỊCH ÔN TẬP",
-      key: "13",
+      key: "14",
       onClick: () => {
         router.push("/study-schedule");
       },
     },
     {
       label: "TIN TỨC",
-      key: "14",
+      key: "15",
       onClick: () => {
         router.push("/new");
       },

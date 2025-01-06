@@ -18,14 +18,17 @@ const listImageFooter = [
   {
     img: "/đv_3.png",
   },
-  {
-    img: "/đv_4.png",
-  },
+  // {
+  //   img: "/đv_4.png",
+  // },
   {
     img: "/đv_5.png",
   },
   {
     img: "/đv_6.jpg",
+  },
+  {
+    img: "/đv-t7.png",
   },
 ];
 function Footer() {
