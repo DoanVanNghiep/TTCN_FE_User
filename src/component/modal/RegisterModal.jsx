@@ -31,23 +31,30 @@ const RegisterModal = () => {
   // Gửi dữ liệu đăng ký lên server
   const onFinish = async (values) => {
     try {
-      console.log("Dữ liệu gửi lên server:", values); // Debug dữ liệu đăng ký
       const res = await registerAuthen(values);
-
-      if (res.status === 200) {
+  
+      if (res?.data?.success) {
         notification.success({
           message: "Đăng ký thành công!",
           description: "Mã OTP đã được gửi đến email của bạn.",
         });
-
+  
         // Hiển thị popup xác thực OTP
         setShowVerifyPopup(true);
         setTempUserData(values); // Lưu dữ liệu đăng ký tạm
+      } else if (res?.data?.success === false) {
+        // Hiển thị thông báo từ backend
+        notification.error({
+          message: "Lỗi đăng ký",
+          description: res.data?.message || "Đăng ký không thành công.",
+        });console.log(res.data?.message + 'Lỗi')
       }
     } catch (error) {
       console.error("Lỗi khi đăng ký:", error.response || error);
+  
+      // Hiển thị lỗi hệ thống
       notification.error({
-        message: "Lỗi đăng ký",
+        message: "Lỗi hệ thống",
         description: error.response?.data?.message || "Vui lòng thử lại sau.",
       });
     }

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button, Input, Form, notification } from "antd";
 import { regenerateOTP, verifyAccount } from "@/api/forgotPassword";
-// import * as AuthService from "@/services/AuthService"; // Giả sử AuthService có hàm verifyAccount và regenerateOTP
 
 const Verify = ({ email, onVerified }) => {
   const [otpInputs, setOtpInputs] = useState(["", "", "", "", "", ""]);
@@ -10,33 +9,85 @@ const Verify = ({ email, onVerified }) => {
   const [otpError, setOtpError] = useState("");
   const [timer, setTimer] = useState("02:00");
   const [countdown, setCountdown] = useState(120);
+  const timerInterval = useRef(null);
 
   useEffect(() => {
-    const startCountdown = () => {
-      const endTime = Date.now() + countdown * 1000;
-      const timerInterval = setInterval(() => {
-        const remainingTime = Math.max(0, endTime - Date.now());
-        const remainingSeconds = Math.ceil(remainingTime / 1000);
-        setCountdown(remainingSeconds);
-
-        const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, "0");
-        const seconds = String(remainingSeconds % 60).padStart(2, "0");
-        setTimer(`${minutes}:${seconds}`);
-
-        if (remainingSeconds <= 0) {
-          clearInterval(timerInterval);
-          notification.warning({
-            message: "Hết thời gian!",
-            description: "Vui lòng thử lại.",
-          });
-        }
-      }, 1000);
-
-      return () => clearInterval(timerInterval);
-    };
-
     startCountdown();
-  }, [countdown]);
+    return () => clearInterval(timerInterval.current);
+  }, []);
+
+  const startCountdown = () => {
+    const startTime = Date.now();
+    const endTime = startTime + countdown * 1000;
+
+    timerInterval.current = setInterval(() => {
+      const remainingTime = Math.max(0, endTime - Date.now());
+      const secondsLeft = Math.ceil(remainingTime / 1000);
+      setCountdown(secondsLeft);
+
+      const minutes = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
+      const seconds = String(secondsLeft % 60).padStart(2, "0");
+      setTimer(`${minutes}:${seconds}`);
+
+      if (secondsLeft <= 0) {
+        clearInterval(timerInterval.current);
+        alert("Hết thời gian! Vui lòng thử lại.");
+      }
+    }, 1000);
+  };
+
+  const handleFocusNext = (index) => {
+    if (index < otpInputs.length - 1) {
+      document.getElementById(`otp-${index + 1}`).focus();
+    }
+  };
+
+  const handleFocusPrev = (index) => {
+    if (index > 0) {
+      document.getElementById(`otp-${index - 1}`).focus();
+    }
+  };
+
+  const getOtp = () => otpInputs.join("");
+
+  const handleVerify = async () => {
+    const otp = getOtp();
+
+    if (otp.length !== 6) {
+      setOtpError("OTP phải đủ 6 ký tự.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await verifyAccount({ email, otp });
+      onVerified(otp); // Gửi sự kiện "verified" về cha
+      clearInterval(timerInterval.current);
+    } catch (error) {
+      setGeneralError(error?.response?.data?.message || "Xác thực thất bại. Vui lòng thử lại!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRegenerateOTP = async () => {
+    setLoading(true);
+    try {
+      await regenerateOTP({ email });
+      alert("OTP mới đã được gửi!");
+
+      // Đặt lại thời gian đếm ngược là 2 phút
+      setCountdown(120);
+      clearInterval(timerInterval.current);
+      startCountdown();
+    } catch (error) {
+      setGeneralError(
+        error?.response?.data?.message || "Không thể gửi lại OTP. Vui lòng thử lại!"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleInputChange = (value, index) => {
     const updatedInputs = [...otpInputs];
@@ -44,67 +95,13 @@ const Verify = ({ email, onVerified }) => {
     setOtpInputs(updatedInputs);
 
     if (value && index < otpInputs.length - 1) {
-      document.getElementById(`otp-${index + 1}`).focus();
+      handleFocusNext(index);
     }
-    clearErrors();
-  };
 
-  const handleBackspace = (index) => {
-    if (!otpInputs[index] && index > 0) {
-      document.getElementById(`otp-${index - 1}`).focus();
+    if (!value) {
+      setOtpError("");
+      setGeneralError("");
     }
-  };
-
-  const getOtp = () => otpInputs.join("");
-
-  const clearErrors = () => {
-    setOtpError("");
-    setGeneralError("");
-  };
-
-  const handleVerify = async () => {
-    const otp = getOtp(); // Lấy mã OTP từ các ô input
-    console.log("OTP:", otp, "Email:", email);
-  
-    if (otp.length !== 6) {
-      setOtpError("OTP phải đủ 6 ký tự.");
-      return;
-    }
-  
-    setLoading(true);
-    try {
-      verifyAccount({ email, otp }) // Gửi dữ liệu tới API
-        .then((res) => {
-          if (res.status === 200) {
-            onVerified(); // Xử lý thành công
-          }
-        });
-    } catch (error) {
-      setGeneralError(error?.message || "Xác thực thất bại. Vui lòng thử lại!");
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-
-  const handleRegenerateOTP = async () => {
-    setLoading(true);
-    try {
-      regenerateOTP({ email }).then((res) => {
-        if (res.status === 200) {
-          setOtpInputs(["", "", "", "", "", ""]);
-          setCountdown(120);
-          setTimer("02:00");
-          notification.success({
-            message: "OTP mới đã được gửi!",
-          });
-        }
-      })
-    } catch (error) {
-      setGeneralError(error?.message || "Không thể gửi lại OTP. Vui lòng thử lại!");
-    } finally {
-      setLoading(false);
-    };
   };
 
   return (

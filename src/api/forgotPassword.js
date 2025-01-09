@@ -18,7 +18,14 @@ export const verifyAccount = ({ email, otp }) => {
     return API.put("/auth/verify-account", { email, otp });
   };
   
-  export const regenerateOTP = ({email}) =>{
-      // return axiosServer.post('/user/otp/generate', {email})
-      return axios.put('/auth/regenerate-otp', {email})
-  }
+  export const regenerateOTP = async ({ email }) => {
+    console.log("Sending to regenerateOTP API:", { email });
+    try {
+      const response = await API.put("/auth/regenerate-otp", { email });
+      console.log("Response from regenerateOTP API:", response.data);
+      return response;
+    } catch (error) {
+      console.error("Error from regenerateOTP API:", error.response || error);
+      throw error;
+    }
+  };
