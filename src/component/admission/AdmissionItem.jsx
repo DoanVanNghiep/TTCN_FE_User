@@ -63,9 +63,8 @@ function AdmissionItem({ params }) {
     <div
       style={{
         backgroundColor: "#FFFFFF",
-        margin: "",
-        border: "",
-        padding: "",
+        margin: "0 auto",
+        padding: "20px",
       }}
     >
       <style>
@@ -100,8 +99,6 @@ function AdmissionItem({ params }) {
             padding: 15px;
             background-color: #f9f9f9;
             border-radius: 8px;
-            max-height: 500px;
-            overflow-y: auto;
             line-height: 1.8;
           }
           .image-container img {
@@ -117,30 +114,15 @@ function AdmissionItem({ params }) {
         `}
       </style>
 
-      {/* Hình ảnh bài viết */}
-      {admissionItem?.image && (
-        <div
-          className="image-container"
-          style={{
-            width: "90%",
-            height: "516px",
-            margin: "20px auto", // Thêm `auto` để căn giữa
-            overflow: "hidden",
-            borderRadius: "8px",
-            marginTop: "20px",
-            backgroundColor: "#f3f4f6", // Nền đồng bộ
-            fontFamily: "'Roboto', sans-serif",
-          }}
-        >
-          <img src={admissionItem.image} alt="Admission" />
-        </div>
-      )}
-
       {/* Nội dung chính */}
       <div
         className="content-box"
         dangerouslySetInnerHTML={{ __html: admissionItem?.admissionForm }}
-        style={{ margin: "15px 65px", borderRadius: "8px" }}
+        style={{
+          margin: "15px 65px",
+          borderRadius: "8px",
+          marginTop: "60px",
+        }}
       ></div>
 
       {/* Nút mở form đăng ký tư vấn */}

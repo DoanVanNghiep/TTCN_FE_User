@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import RegisterAccountModal from "../modal/RegisterAccountModal";
 import Cookies from "js-cookie";
 import Link from "next/link";
+
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -16,6 +17,7 @@ function getItem(label, key, icon, children) {
     label,
   };
 }
+
 const MenuHeader = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -24,6 +26,7 @@ const MenuHeader = () => {
   const [id, setId] = useState(null);
 
   const { data, dispatch } = useContext(AppContext);
+
   const showModalRegisterAcc = () => {
     dispatch({ type: "modalRegisterAccOpen" });
   };
@@ -32,9 +35,9 @@ const MenuHeader = () => {
     if (pathname.includes("/")) {
       return "1";
     }
-     if (pathname.includes("/admission")) {
-       return "3";
-     }
+    if (pathname.includes("/admission")) {
+      return "3";
+    }
     if (pathname.includes("/vstep")) {
       return "4";
     }
@@ -75,43 +78,55 @@ const MenuHeader = () => {
 
   const items = [
     {
-      label: "TRANG CHỦ",
+      label: (
+        <span style={{ fontSize: "13px", fontWeight: "500" }}>TRANG CHỦ</span>
+      ),
       key: "1",
       onClick: () => {
         router.push("/");
       },
     },
-    // {
-    //   label: (
-    //     <Link href={`http://localhost:8080/mocktest/exam/?jwt=${jwt}&id=${id}`}>
-    //       THI THỬ
-    //     </Link>
-    //   ),
-    //   key: "2",
-    // },
     {
-      label: "TUYỂN SINH",
+      label: (
+        <span style={{ fontSize: "13px", fontWeight: "500" }}>TUYỂN SINH</span>
+      ),
       key: "3",
       onClick: () => {
         router.push("/admission");
       },
     },
     {
-      label: "ĐÀO TẠO ANH NGỮ",
+      label: (
+        <span style={{ fontSize: "13px", fontWeight: "500" }}>
+          ĐÀO TẠO ANH NGỮ
+        </span>
+      ),
       children: [
         {
-          label: <Link href="/vstep">Luyện thi VSTEP</Link>,
+          label: (
+            <Link href="/vstep" style={{ fontSize: "13px", fontWeight: "400" }}>
+              Luyện thi VSTEP
+            </Link>
+          ),
           key: "4",
           children: [
             {
-              label: "Luyện thi VSTEP B1",
+              label: (
+                <span style={{ fontSize: "13px", fontWeight: "400" }}>
+                  Luyện thi VSTEP B1
+                </span>
+              ),
               key: "5",
               onClick: () => {
                 router.push("/vstep/luyen-thi-b1");
               },
             },
             {
-              label: "Luyện thi VSTEP B2",
+              label: (
+                <span style={{ fontSize: "13px", fontWeight: "400" }}>
+                  Luyện thi VSTEP B2
+                </span>
+              ),
               key: "6",
               onClick: () => {
                 router.push("/vstep/luyen-thi-b2");
@@ -120,32 +135,52 @@ const MenuHeader = () => {
           ],
         },
         {
-          label: "Luyện thi TOEIC",
+          label: (
+            <span style={{ fontSize: "13px", fontWeight: "400" }}>
+              Luyện thi TOEIC
+            </span>
+          ),
           key: "7",
           onClick: () => {
             router.push("/toeic");
           },
         },
         {
-          label: "Luyện thi IELTS",
+          label: (
+            <span style={{ fontSize: "13px", fontWeight: "400" }}>
+              Luyện thi IELTS
+            </span>
+          ),
           key: "8",
           onClick: () => {
             router.push("/ielts");
           },
         },
         {
-          label: <Link href="/aptis">Luyện thi APTIS</Link>,
+          label: (
+            <Link href="/aptis" style={{ fontSize: "13px", fontWeight: "400" }}>
+              Luyện thi APTIS
+            </Link>
+          ),
           key: "9",
           children: [
             {
-              label: "Luyện thi APTIS B1",
+              label: (
+                <span style={{ fontSize: "13px", fontWeight: "400" }}>
+                  Luyện thi APTIS B1
+                </span>
+              ),
               key: "10",
               onClick: () => {
                 router.push("/aptis/luyen-thi-b1");
               },
             },
             {
-              label: "Luyện thi APTIS B2",
+              label: (
+                <span style={{ fontSize: "13px", fontWeight: "400" }}>
+                  Luyện thi APTIS B2
+                </span>
+              ),
               key: "11",
               onClick: () => {
                 router.push("/aptis/luyen-thi-b2");
@@ -154,7 +189,11 @@ const MenuHeader = () => {
           ],
         },
         {
-          label: "Anh Ngữ Học Thuật",
+          label: (
+            <span style={{ fontSize: "13px", fontWeight: "400" }}>
+              Anh Ngữ Học Thuật
+            </span>
+          ),
           key: "12",
           onClick: () => {
             router.push("/englishacademic");
@@ -163,11 +202,17 @@ const MenuHeader = () => {
       ],
     },
     {
-      label: "ĐÀO TẠO TIN HỌC",
+      label: (
+        <span style={{ fontSize: "13px", fontWeight: "500" }}>
+          ĐÀO TẠO TIN HỌC
+        </span>
+      ),
       children: [
         {
           label: (
-            <Link href="/oit0">CHỨNG CHỈ ỨNG DỤNG CNTT CƠ BẢN VÀ NÂNG CAO</Link>
+            <Link href="/oit0" style={{ fontSize: "13px", fontWeight: "400" }}>
+              CHỨNG CHỈ ỨNG DỤNG CNTT CƠ BẢN VÀ NÂNG CAO
+            </Link>
           ),
           key: "16",
           onClick: () => {
@@ -175,66 +220,74 @@ const MenuHeader = () => {
           },
         },
         {
-          label: <Link href="/oit1">CHỨNG CHỈ TIN HỌC QUỐC TẾ ICDL</Link>,
+          label: (
+            <Link href="/oit1" style={{ fontSize: "13px", fontWeight: "400" }}>
+              CHỨNG CHỈ TIN HỌC QUỐC TẾ ICDL
+            </Link>
+          ),
           key: "17",
-
           onClick: () => {
             router.push("/oit1");
           },
         },
         {
-          label: <Link href="/itce">Chứng chỉ Tin học</Link>,
-          key: "19",
-
+          label: (
+            <Link href="/itce" style={{ fontSize: "13px", fontWeight: "400" }}>
+              CHỨNG CHỈ TIN HỌC THEO QUY CHẾ ĐÀO TẠO
+            </Link>
+          ),
+          key: "18",
           onClick: () => {
             router.push("/itce");
           },
         },
       ],
     },
-
     {
-      label: "LỊCH THI VSTEP",
+      label: (
+        <span style={{ fontSize: "13px", fontWeight: "500" }}>
+          LỊCH THI VSTEP
+        </span>
+      ),
       key: "13",
       onClick: () => {
         router.push("/test-schedule");
       },
     },
     {
-      label: "LỊCH ÔN TẬP",
+      label: (
+        <span style={{ fontSize: "13px", fontWeight: "500" }}>LỊCH ÔN TẬP</span>
+      ),
       key: "14",
       onClick: () => {
         router.push("/study-schedule");
       },
     },
     {
-      label: "TIN TỨC",
+      label: (
+        <span style={{ fontSize: "13px", fontWeight: "500" }}>TIN TỨC</span>
+      ),
       key: "15",
       onClick: () => {
         router.push("/new");
       },
     },
-
-    {
-      label: "ĐĂNG KÝ TƯ VẤN",
-      key: "sub6",
-    },
   ];
+
   useEffect(() => {
     setJwt(Cookies.get("jwt"));
     setId(Cookies.get("id"));
-    console.log(jwt, id);
   }, []);
 
   return (
     <>
       <Menu
         onClick={(e) => {
-          if (e.key == "sub6") {
+          if (e.key === "sub6") {
             showModalRegisterAcc();
           }
         }}
-        className="font-[500] items-center w-[70vw] phone:hidden tablet:hidden desktop:flex laptop:hidden  "
+        className="font-[500] items-center w-[70vw] phone:hidden tablet:hidden desktop:flex laptop:hidden"
         mode="horizontal"
         items={items}
         defaultSelectedKeys={checkPathname}
@@ -244,7 +297,7 @@ const MenuHeader = () => {
           items,
         }}
         trigger={["click"]}
-        className="block phone:block tablet:block phone:absolute phone:left-[20px] phone:bottom-[13px] desktop:hidden  "
+        className="block phone:block tablet:block phone:absolute phone:left-[20px] phone:bottom-[13px] desktop:hidden"
       >
         <MenuOutlined className="" onClick={(e) => e.preventDefault()} />
       </Dropdown>
