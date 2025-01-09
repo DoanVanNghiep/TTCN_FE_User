@@ -1,22 +1,25 @@
 "use client";
 import { Modal, Form, Button, Input, Row, Col, message } from "antd";
 import { AppContext } from "../AppContext/AppContext";
-import React, { useContext } from "react";
-import { forgotPassword } from "@/api/forgotPassword";
+import React, { useContext, useState } from "react";
+import {  regerateOtp } from "@/api/forgotPassword";
 
 import Image from "next/image";
 import balo from "public/world_book_fun_fb_06 [Converted]-04 1.svg";
 const ForgetPassword = () => {
   const onFinish = async (values) => {
-    forgotPassword(values).then((res) => {
-      if (res?.data?.success) {
-        message.success("Vui lòng kiểm tra email");
-      } else if (res?.data?.error?.statusCode === 500) {
-        message.error(res?.data?.error?.message);
-      }
-    });
+    // regerateOtp(values).then((res) => {
+    //   console.log("res re: ",res);
+    //   if (res?.data?.success) {
+    //     message.success("Vui lòng kiểm tra email");
+    //     setShowVerifyPopup(true);
+    //   } else if (res?.data?.error?.statusCode === 500) {
+    //     message.error(res?.data?.error?.message);
+    //   }
+    // });
     dispatch({ type: "modalForgetPasswordClose" });
   };
+
   const { data, dispatch } = useContext(AppContext);
   const { modalForgetPasswordOpen } = data;
 
@@ -24,8 +27,11 @@ const ForgetPassword = () => {
     dispatch({ type: "modalForgetPasswordClose" });
   };
 
+    // Xử lý khi người dùng xác thực thành công
+
   return (
     <>
+  
       <Modal
         open={modalForgetPasswordOpen}
         onCancel={handleCancel}

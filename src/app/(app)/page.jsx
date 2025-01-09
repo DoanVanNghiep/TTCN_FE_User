@@ -121,7 +121,7 @@ async function Home() {
           <New />
         </div>
       </div>
-      <PopUp />
+      {/* <PopUp /> */}
     </main>
   );
 }
