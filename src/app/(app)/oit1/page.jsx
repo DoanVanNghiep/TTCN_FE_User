@@ -46,14 +46,14 @@ async function PageOit0(props) {
           <h2 className="title">Thông tin khóa học </h2>
           <Course service={service} />
 
-          <div className="w-[80vw] mt-[10%] border-none">
+          {/* <div className="w-[80vw] mt-[10%] border-none">
             <img
               src={slidebyId?.image}
               className="w-full "
               alt=""
               width={900}
             />
-          </div>
+          </div> */}
 
           <div className="">
             <h2 className="title">Lộ trình học và thi</h2>
